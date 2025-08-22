@@ -131,7 +131,7 @@ func TestLoadConfigFromEnv(t *testing.T) {
 			expectedImgBuildError: "DEPLOY_RAMDISK_URL requires DEPLOY_KERNEL_URL to be set also",
 		},
 		{
-			name: "Force Persistent Default",
+			name: "ISO Force Persistent Default",
 			env: EnvFixture{
 				isoURL:                    "http://iso",
 				forcePersistentBootDevice: "Default",
@@ -139,7 +139,7 @@ func TestLoadConfigFromEnv(t *testing.T) {
 			forcePersistent: "Default",
 		},
 		{
-			name: "Force Persistent Never",
+			name: "ISO Force Persistent Never",
 			env: EnvFixture{
 				isoURL:                    "http://iso",
 				forcePersistentBootDevice: "Never",
@@ -147,7 +147,7 @@ func TestLoadConfigFromEnv(t *testing.T) {
 			forcePersistent: "Never",
 		},
 		{
-			name: "Force Persistent Always",
+			name: "ISO Force Persistent Always",
 			env: EnvFixture{
 				isoURL:                    "http://iso",
 				forcePersistentBootDevice: "Always",
@@ -155,9 +155,46 @@ func TestLoadConfigFromEnv(t *testing.T) {
 			forcePersistent: "Always",
 		},
 		{
-			name: "Force Persistent Invalid",
+			name: "ISO Force Persistent Invalid",
 			env: EnvFixture{
 				isoURL:                    "http://iso",
+				forcePersistentBootDevice: "NotAValidOption",
+			},
+			expectedError:         "invalid value for variable LIVE_ISO_FORCE_PERSISTENT_BOOT_DEVICE",
+			expectedImgBuildError: "invalid value for variable LIVE_ISO_FORCE_PERSISTENT_BOOT_DEVICE",
+		},
+		{
+			name: "kernel/ramdisk Force Persistent Default",
+			env: EnvFixture{
+				kernelURL:                 "http://kernel",
+				ramdiskURL:                "http://ramdisk",
+				forcePersistentBootDevice: "Default",
+			},
+			forcePersistent: "Default",
+		},
+		{
+			name: "kernel/ramdisk Force Persistent Never",
+			env: EnvFixture{
+				kernelURL:                 "http://kernel",
+				ramdiskURL:                "http://ramdisk",
+				forcePersistentBootDevice: "Never",
+			},
+			forcePersistent: "Never",
+		},
+		{
+			name: "kernel/ramdisk Force Persistent Always",
+			env: EnvFixture{
+				kernelURL:                 "http://kernel",
+				ramdiskURL:                "http://ramdisk",
+				forcePersistentBootDevice: "Always",
+			},
+			forcePersistent: "Always",
+		},
+		{
+			name: "kernel/ramdisk Force Persistent Invalid",
+			env: EnvFixture{
+				kernelURL:                 "http://kernel",
+				ramdiskURL:                "http://ramdisk",
 				forcePersistentBootDevice: "NotAValidOption",
 			},
 			expectedError:         "invalid value for variable LIVE_ISO_FORCE_PERSISTENT_BOOT_DEVICE",
